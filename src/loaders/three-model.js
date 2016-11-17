@@ -20,7 +20,8 @@ module.exports = {
     loader:            { default: 'object', oneOf: ['object', 'json'] },
     enableAnimation:   { default: true },
     animation:         { default: DEFAULT_ANIMATION },
-    animationDuration: { default: 0 }
+    animationDuration: { default: 0 },
+    crossorigin: { default: '' }
   },
 
   init: function () {
@@ -40,6 +41,7 @@ module.exports = {
       this.remove();
       if (data.loader === 'object') {
         loader = new THREE.ObjectLoader();
+        if (data.crossorigin) loader.setCrossOrigin(data.crossorigin);
         loader.load(data.src, function(loaded) {
           loaded.traverse( function(object) {
             if (object instanceof THREE.SkinnedMesh)
